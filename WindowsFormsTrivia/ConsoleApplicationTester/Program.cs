@@ -12,10 +12,10 @@ namespace ConsoleApplicationTester
         static void Main(string[] args)
         {
             var categoryRepo = new CategoryRepository();
-            string categories = categoryRepo.GetCategory();           
+            var categories = categoryRepo.GetAll();           
             foreach(var category in categories)
             {
-                Console.WriteLine(category.CategoryName);
+                Console.WriteLine(category.Id +" " +category.CategoryName);
             }
             Console.ReadKey();
         }

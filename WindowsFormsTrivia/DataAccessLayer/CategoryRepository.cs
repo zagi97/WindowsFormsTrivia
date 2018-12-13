@@ -14,43 +14,29 @@ namespace DataAccessLayer
 {
     public class CategoryRepository
     {
-        private List<Category> _category = new List<Category>();
+        public string connectionString = "Data Source=193.198.57.183; Initial Catalog = DotNet; User ID = vjezbe; Password = vjezbe";
 
-        public CategoryRepository() //konstruktor
+        public List<Category> GetAll()
         {
-
-            string url = "https://opentdb.com/api.php?amount=10";
-            string json = CallRestMethod(url);
-
-            JArray jsonObject = JArray.Parse(json);
-
-            foreach (JObject item in jsonObject)
+            var category = new List<Category>();
+            using (DbConnection connection = new SqlConnection(connectionString))
+            using (DbCommand command = connection.CreateCommand())
             {
-                _category.Add(new Category
+                command.CommandText = "SELECT * FROM Category";
+                connection.Open();
+                using (DbDataReader reader = command.ExecuteReader())
                 {
-                    CategoryName = (string)item["category"]                  
-                });
+                    while (reader.Read())
+                    {
+                        category.Add(new Category()
+                        {                         
+                            Id = Int32.Parse(reader["Country_id"].ToString()),
+                            CategoryName = (string)reader["Country_name"]                          
+                        });
+                    }
+                }
             }
-
-        }
-
-        public List<Category> GetCategory()
-        {
-            return _category;
-        }
-
-        public static string CallRestMethod(string url)
-        {
-            HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
-            webrequest.Method = "GET";
-            webrequest.ContentType = "application/x-www-form-urlencoded";
-            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
-            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
-            StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
-            string result = string.Empty;
-            result = responseStream.ReadToEnd();
-            webresponse.Close();
-            return result;
+            return category;
         }
     }
 }
