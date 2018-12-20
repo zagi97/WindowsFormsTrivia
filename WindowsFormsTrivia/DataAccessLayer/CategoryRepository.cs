@@ -30,8 +30,8 @@ namespace DataAccessLayer
                     {
                         category.Add(new Category()
                         {                         
-                            Id = Int32.Parse(reader["Country_id"].ToString()),
-                            CategoryName = (string)reader["Country_name"]                          
+                            Id = Int32.Parse(reader["Category_id"].ToString()),
+                            CategoryName = (string)reader["Category_name"]                          
                         });
                     }
                 }
