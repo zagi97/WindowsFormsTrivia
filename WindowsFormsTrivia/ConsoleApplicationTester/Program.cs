@@ -18,12 +18,17 @@ namespace ConsoleApplicationTester
             {
                 Console.WriteLine(category.Id +" " +category.CategoryName);
             }*/
-
           var categoryRepo = new TriviaRepostitory();
-          var categories = categoryRepo.GetTriviaQA();           
-          foreach(var category in categories)
+          var questions = categoryRepo.GetTriviaQA();           
+          foreach(var question in questions)
           {
-              Console.WriteLine(category.Description);
+              Console.WriteLine(question.Description); 
+              foreach( var answer in question.Answers)
+                {
+                    Console.WriteLine(answer.Description);
+                    Console.WriteLine(answer.Correct);
+                }
+                Console.WriteLine();
           }
 
             Console.ReadKey();
