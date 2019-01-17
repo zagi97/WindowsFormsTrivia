@@ -13,12 +13,62 @@ namespace DataAccessLayer
    public class TriviaRepostitory
     {
         public List<Question> _questions = new List<Question>();
+        public List<Category> _categories = new List<Category>();
+        public List<Difficulty> _difficulty = new List<Difficulty>();
 
         public TriviaRepostitory()
         {
-            
+            StreamReader oSr = new StreamReader("E:/Fakultet/RAC, 2.godina/III.Semestar/Programiranjeu.NETokolini2/Projekt/WindowsFormsTrivia/DataAccessLayer/kviz.json");
+            string sJson = "";
+            using (oSr)
+            {
+                sJson = oSr.ReadToEnd();
+            }
+            JObject oJson = JObject.Parse(sJson);
+
+
+            var oPitanja = oJson["results"].ToList();
+
+            for (int i = 0; i < oPitanja.Count; i++)
+            {
+                _categories.Add(new Category
+                {
+                    CategoryName = (string)oPitanja[i]["category"],
+                });
+
+                _difficulty.Add(new Difficulty
+                {
+                    DifficultyLevel = (string)oPitanja[i]["difficulty"]
+                });
+            }
+           
         }
-                 
+
+        public void AddCategory(Category kategorija) //tipa klase Country
+        {
+            _categories.Add(kategorija);
+        }
+
+        public List<string> GetCategories() // funkcija koja vraća listu stringova
+        {
+            var categories = _categories.Where(x => !string.IsNullOrEmpty(x.CategoryName)).Select(x => x.CategoryName).Distinct().OrderBy(x => x).ToList(); //DISTINCT->ZBOG TOGA DA NAM ISPIŠE JEDNOM EUROPA
+            categories.Insert(0, "All");
+            return categories;
+        }
+
+        public void AddDifficulty(Difficulty težina) //tipa klase Country
+        {
+            _difficulty.Add(težina);
+        }
+
+        public List<string> GetDifficulty() // funkcija koja vraća listu stringova
+        {
+            var difficulty = _difficulty.Where(x => !string.IsNullOrEmpty(x.DifficultyLevel)).Select(x => x.DifficultyLevel).Distinct().OrderBy(x => x).ToList(); //DISTINCT->ZBOG TOGA DA NAM ISPIŠE JEDNOM EUROPA
+            difficulty.Insert(0, "All");
+            return difficulty;
+        }
+
+
         public List<Question> GetTriviaQA ()
         {
             StreamReader oSr = new StreamReader("E:/Fakultet/RAC, 2.godina/III.Semestar/Programiranjeu.NETokolini2/Projekt/WindowsFormsTrivia/DataAccessLayer/kviz.json");
@@ -38,7 +88,8 @@ namespace DataAccessLayer
                 //Kreirati novi objekt klase Answer i dodati ga u praznu listu odgovora
                 List<Answer> answers = new List<Answer>();
 
-                Answer correctAnswer = new Answer {
+                Answer correctAnswer = new Answer
+                {
                     Description = (string)oPitanja[i]["correct_answer"],
                     Correct = true
                 };
@@ -73,7 +124,6 @@ namespace DataAccessLayer
             }
             return _questions ;
 
-        }
-             
+        }        
     }
 }
