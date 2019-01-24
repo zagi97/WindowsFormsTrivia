@@ -35,8 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panelPitanja = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panelPitanja.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblEditUserName
@@ -101,27 +99,18 @@
             // 
             // panelPitanja
             // 
-            this.panelPitanja.Controls.Add(this.label4);
-            this.panelPitanja.Location = new System.Drawing.Point(24, 92);
+            this.panelPitanja.Location = new System.Drawing.Point(12, 91);
             this.panelPitanja.Name = "panelPitanja";
-            this.panelPitanja.Size = new System.Drawing.Size(534, 226);
+            this.panelPitanja.Size = new System.Drawing.Size(1030, 529);
             this.panelPitanja.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "label4";
+            this.panelPitanja.Paint += new System.Windows.Forms.PaintEventHandler(this.panelPitanja_Paint);
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(570, 330);
+            this.ClientSize = new System.Drawing.Size(1054, 632);
             this.Controls.Add(this.panelPitanja);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -132,8 +121,6 @@
             this.Name = "Form3";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form3_Load);
-            this.panelPitanja.ResumeLayout(false);
-            this.panelPitanja.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,6 +135,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panelPitanja;
-        private System.Windows.Forms.Label label4;
     }
 }

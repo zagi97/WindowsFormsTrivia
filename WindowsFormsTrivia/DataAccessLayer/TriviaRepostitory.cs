@@ -40,13 +40,13 @@ namespace DataAccessLayer
                 {
                     DifficultyLevel = (string)oPitanja[i]["difficulty"]
                 });
+
+                _questions.Add(new Question
+                {
+                    Description = (string)oPitanja[i]["question"]
+                });
             }
            
-        }
-
-        public void AddCategory(Category kategorija) //tipa klase Country
-        {
-            _categories.Add(kategorija);
         }
 
         public List<string> GetCategories() // funkcija koja vraća listu stringova
@@ -56,16 +56,18 @@ namespace DataAccessLayer
             return categories;
         }
 
-        public void AddDifficulty(Difficulty težina) //tipa klase Country
-        {
-            _difficulty.Add(težina);
-        }
-
         public List<string> GetDifficulty() // funkcija koja vraća listu stringova
         {
             var difficulty = _difficulty.Where(x => !string.IsNullOrEmpty(x.DifficultyLevel)).Select(x => x.DifficultyLevel).Distinct().OrderBy(x => x).ToList(); //DISTINCT->ZBOG TOGA DA NAM ISPIŠE JEDNOM EUROPA
             difficulty.Insert(0, "All");
             return difficulty;
+        }
+
+        public List<string> GetQuestions() // funkcija koja vraća listu stringova
+        {
+            var question = _questions.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description).Distinct().OrderBy(x => x).ToList(); //DISTINCT->ZBOG TOGA DA NAM ISPIŠE JEDNOM EUROPA
+            
+            return question;
         }
 
 
@@ -122,7 +124,7 @@ namespace DataAccessLayer
                     Answers = answers
                 });
             }
-            return _questions ;
+            return _questions;
 
         }        
     }

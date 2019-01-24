@@ -24,7 +24,6 @@ namespace PresentationLayer
 
         private BindingSource _categoriesBindingSource = new BindingSource();
         private BindingSource _difficultyBindingSource = new BindingSource();
-        private BindingSource _tableBindingSource = new BindingSource();
 
         public Form2()
         {
@@ -34,27 +33,13 @@ namespace PresentationLayer
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
-        {
-            Category kategorija = new Category
-            {
-                CategoryName = comboBoxCategory.Text
-            };
-
-            _triviaRepository.AddCategory(kategorija);
+        {           
             ////////////////////////////////////////////////////////
             _user.UserName = textBoxName.Text;
             _category.CategoryName = comboBoxCategory.Text;
             _difficulty.DifficultyLevel = comboBoxDifficulty.Text;
             _userRepository.SaveUser(_user, _category, _difficulty);
             ////////////////////////////////////////////////////////
-
-            Difficulty težina = new Difficulty
-            {
-                DifficultyLevel = comboBoxDifficulty.Text
-            };
-
-            _triviaRepository.AddCategory(kategorija);
-            _triviaRepository.AddDifficulty(težina);
 
             var user = new User
             {
