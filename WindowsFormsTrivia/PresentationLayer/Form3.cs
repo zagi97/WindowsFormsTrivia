@@ -25,9 +25,7 @@ namespace PresentationLayer
         {
             _user = user;
             _category = category;
-            _difficulty = difficulty;
-            _questionsBindingSource.DataSource = _triviaRepository.GetQuestions();
-            _questionsBindingSource.DataSource = _triviaRepository.GetTriviaQA();
+            _difficulty = difficulty;           
             InitializeComponent();
         }
 
